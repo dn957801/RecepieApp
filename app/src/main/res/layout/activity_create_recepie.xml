@@ -20,14 +20,12 @@
         android:layout_marginTop="45dp"
         android:text="DESCRIPTION" />
 
-    <TextView
-        android:id="@+id/description_text"
+    <EditText
+        android:id="@+id/descr_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/description"
         android:layout_alignBottom="@+id/description"
-        android:layout_marginStart="87dp"
-        android:layout_toEndOf="@+id/description" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/ingredients"
@@ -38,13 +36,12 @@
         android:layout_marginTop="23dp"
         android:text="INGREDIENTS" />
 
-    <TextView
-        android:id="@+id/ingred_text"
+    <EditText
+        android:id="@+id/ingr_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ingredients"
-        android:layout_alignBottom="@+id/ingredients"
-        android:layout_alignStart="@+id/description_text" />
+        android:layout_alignStart="@+id/descr_text"
+        android:layout_below="@+id/descr_text" />
 
     <TextView
         android:id="@+id/instructions"
@@ -55,14 +52,14 @@
         android:layout_marginTop="29dp"
         android:text="INSTRUCTIONS" />
 
-    <TextView
-        android:id="@+id/instruction_text"
+    <EditText
+        android:id="@+id/inst_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/instructions"
-        android:layout_marginTop="19dp" />
+        android:layout_alignStart="@+id/ingr_text"
+        android:layout_below="@+id/ingr_text" />
 
+    <!--
     <Button
         android:id="@+id/edit"
         android:layout_width="wrap_content"
@@ -71,40 +68,50 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="62dp"
         android:text="EDIT" />
+    -->
 
     <Button
-        android:id="@+id/create"
+        android:id="@+id/save_recepie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/edit"
-        android:layout_alignBottom="@+id/edit"
-        android:layout_marginStart="40dp"
-        android:layout_toEndOf="@+id/edit"
-        android:text="DELETE" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="53dp"
+        android:layout_marginEnd="19dp"
+        android:layout_toStartOf="@+id/ingr_text"
+        android:text="SAVE" />
 
-    <Button
+    <!--<Button
         android:id="@+id/rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/create"
+        android:layout_alignBottom="@+id/delete"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="24dp"
         android:text="RATE" />
+    -->
 
     <TextView
         android:id="@+id/url"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/edit"
-        android:layout_alignStart="@+id/edit"
-        android:layout_marginBottom="21dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:text="URL (IF ANY)" />
 
-    <TextView
-        android:id="@+id/url_text"
+    <EditText
+        android:id="@+id/u_t"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ingred_text"
-        android:layout_alignTop="@+id/url" />
+        android:layout_alignBottom="@+id/url"
+        android:layout_alignStart="@+id/inst_text" />
+
+    <Button
+        android:id="@+id/cancel_recepie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/save_recepie"
+        android:layout_marginStart="13dp"
+        android:layout_toEndOf="@+id/ingr_text"
+        android:text="CANCEL" />
 
 </RelativeLayout>

@@ -1,6 +1,8 @@
 package com.example.dinesh.recepieapp;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -23,7 +25,6 @@ public class RecepieDB extends SQLiteOpenHelper{
 
     public RecepieDB(Context context) {
         super(context, database_name, null, 1);
-        SQLiteDatabase db = this.getWritableDatabase();
     }
 
     @Override
@@ -34,5 +35,29 @@ public class RecepieDB extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+table_name);
+    }
+
+    public boolean insertData( String description, String ingredients, String instructions, String url) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(col_2, description);
+        contentValues.put(col_3, ingredients);
+        contentValues.put(col_4, instructions);
+        contentValues.put(col_5, url);
+        long result = db.insert(table_name, null, contentValues);
+        if (result == -1) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public Cursor getRecepiesFromDatabase() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("select * from " +table_name,null);
+
+        return result;
     }
 }

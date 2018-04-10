@@ -96,7 +96,9 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/instruction_text_display"
         android:layout_below="@+id/instruction_text_display"
-        android:layout_marginTop="33dp" />
+        android:layout_marginTop="33dp"
+        android:clickable="true"
+        android:autoLink="web"/>
 
     <TextView
         android:id="@+id/urlText"

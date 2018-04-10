@@ -45,7 +45,6 @@ public class displayRecepie extends AppCompatActivity {
         Intent oldIntent = getIntent();
         recepie_id = oldIntent.getIntExtra("RECEPIE_ID" , 0);
         previous_intent = oldIntent.getStringExtra("PREV_INTENT");
-        Log.i(TAG,"SHENOY Recepie ID retrieved = " + recepie_id);
         displayRecepie(recepie_id);
 
 
@@ -80,7 +79,6 @@ public class displayRecepie extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 dialog.dismiss();
-                                Log.i(TAG, "VICHITRA recepie to be deleted = " + recepie_id_fromDB);
                                 int no_of_rows_deleted = db.deleteData(String.valueOf(recepie_id_fromDB));
                                 if(no_of_rows_deleted == 0) {
                                     Toast.makeText(displayRecepie.this, "Delete operation failed", Toast.LENGTH_LONG).show();
@@ -113,7 +111,6 @@ public class displayRecepie extends AppCompatActivity {
                         boolean result=true;
 
                         // Insert rating to database
-                        Log.i(TAG, "SHENOY rating to update in DB = " + rating + " for DB entry = " + String.valueOf(recepie_id_fromDB));
                         result = db.updateRating(String.valueOf(recepie_id_fromDB), rating);
                         if(result == false) {
                             Toast.makeText(displayRecepie.this, "Rating update failed", Toast.LENGTH_SHORT).show();
@@ -131,7 +128,9 @@ public class displayRecepie extends AppCompatActivity {
     public void displayRecepie( int recepie_id ) {
         int local_counter = 0;
         float rating_value_to_be_set;
+        int count_of_recepies=0;
         Cursor result = db.getRecepiesFromDatabase();
+        count_of_recepies = result.getCount();
         if(result.getCount() == 0) {
             // No recepies available
             displayTheRecepie("Error", "No recepies yet");
@@ -141,16 +140,18 @@ public class displayRecepie extends AppCompatActivity {
 
         // if returned from searchRecepie, then handle differently
         if(previous_intent.matches("SEARCH")) {
+            result.moveToFirst();
 
-            while(local_counter != recepie_id) {
+            while(local_counter < count_of_recepies) {
                 local_counter++;
+                if (recepie_id == Integer.parseInt(result.getString(0))) {
+                    break;
+                }
                 result.moveToNext();
             }
 
-            Log.i(TAG, "Hey mission successful, set accordingly");
-            //result.moveToPrevious();
             recepie_id_fromDB = Integer.parseInt(result.getString(0));
-            etRecepieX.setText(result.getString(0));
+            //etRecepieX.setText(result.getString(0));
 
             desc_text = result.getString(1);
             etDTD.setText(result.getString(1));
@@ -173,17 +174,16 @@ public class displayRecepie extends AppCompatActivity {
         if(result != null)
             result.moveToFirst();
 
-        //local_counter = 1;
-        while(local_counter < recepie_id) {
+        while(local_counter < count_of_recepies) {
             local_counter++;
+            if (recepie_id == Integer.parseInt(result.getString(0))) {
+                break;
+            }
             result.moveToNext();
         }
         // Set the recepie details
         recepie_id_fromDB = Integer.parseInt(result.getString(0));
-        etRecepieX.setText(result.getString(0));
-        Log.i(TAG, "VICHITRA recepie_id_fromDB = " + recepie_id_fromDB);
-        Log.i(TAG, "VICHITRA recepie_id received in function = " + recepie_id);
-
+        //etRecepieX.setText(result.getString(0));
 
         desc_text = result.getString(1);
         etDTD.setText(result.getString(1));

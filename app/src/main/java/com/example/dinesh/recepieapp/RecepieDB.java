@@ -116,22 +116,15 @@ public class RecepieDB extends SQLiteOpenHelper{
         cursor = db.rawQuery("select * from recepies_table where DESCRIPTION like'%"+searchString+"%'",null);
 
         try {
-            //SQLiteDatabase db = this.getWritableDatabase();
-            //cursor = db.query(table_name, columns, where, whereArgs, null, null, null);
-            /*String sql = "select * from " +table_name + "WHERE" + KEY_WORD + "Like '%" + searchString + "%'";
-            //cursor = db.rawQuery("select * from " +table_name + "WHERE" + KEY_WORD + "Like %" + searchString + "%");
-            cursor = db.rawQuery(sql, null);*/
-            Log.i(TAG, "WOW, inside try");
             if(cursor == null) {
-                Log.i(TAG, "WOW, problem problem probelm");
+                // null
+                return null;
             }
-            Log.i(TAG, "String to be searched is = " + searchString);
             if(cursor != null) {
                 return cursor;
             }
 
         } catch (Exception e) {
-            Log.i(TAG, "WOW EXCEPTION");
             return null;
         }
         return cursor;

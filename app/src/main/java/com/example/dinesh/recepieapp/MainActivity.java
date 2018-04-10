@@ -24,11 +24,6 @@ public class MainActivity extends AppCompatActivity {
         myDb = new RecepieDB(this);
         my_recepies = (Button) findViewById(R.id.my_recepies);
         search_a_recepie = (Button) findViewById(R.id.search_recepie);
-        /** edit = (Button) findViewById(R.id.edit);
-        delete = (Button) findViewById(R.id.delete);
-        rate = (Button) findViewById(R.id.rate);
-        create = (Button) findViewById(R.id.create);
-        my_description = (TextView) findViewById(R.id.); */
 
         // onClickListener to list all existing recepies
         my_recepies.setOnClickListener(new View.OnClickListener() {

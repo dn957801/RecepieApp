@@ -32,6 +32,7 @@ public class AllRecepieList extends AppCompatActivity {
     private ArrayList<String> myRecepieList = new ArrayList<String>();
     private ArrayList<String> dynamicRecepieList = new ArrayList<String>();
     private ArrayList<Float> dynamicRatingList = new ArrayList<Float>();
+    private ArrayList<Integer> dynamicIdList = new ArrayList<Integer>();
     private int countOfRecepies = 0;
     String TAG="AllRecepieList";
     CustomAdapter customAdapter = new CustomAdapter();
@@ -88,6 +89,7 @@ public class AllRecepieList extends AppCompatActivity {
                 //itemsAdapter.notifyDataSetChanged();
                 rating_for_recepie = Float.parseFloat(result.getString(5));
                 dynamicRatingList.add(rating_for_recepie);
+                dynamicIdList.add(Integer.parseInt(result.getString(0)));
                 counter++;
             }
         }
@@ -155,25 +157,18 @@ public class AllRecepieList extends AppCompatActivity {
             title.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int count = 0, incr_count = 0;
-                    for (count = 0; count < countOfRecepies; count++) {
-                        if (position == count) {
-                            // this is the recepie to be displayed
-                            Cursor result = db.getRecepiesFromDatabase();
-                            // increment cursor to reach exact row
-                            while (incr_count != count) {
-                                result.moveToNext();
-                                incr_count++;
-                            }
-                            //itemsAdapter.clear();
-                            // now reached exact position, invoke activity
-                            Intent intent = new Intent(AllRecepieList.this, displayRecepie.class);
-                            intent.putExtra("RECEPIE_ID", (count));
-                            intent.putExtra("PREV_INTENT","ALLRECEPIES");
-                            startActivity(intent);
+                    int count = 0, incr_count = 0, new_recepie_id=0;
 
-                        }
+                    while(count != position) {
+                        count++;
                     }
+                    new_recepie_id = dynamicIdList.get(count);
+
+                    Intent intent = new Intent(AllRecepieList.this, displayRecepie.class);
+                    intent.putExtra("RECEPIE_ID", (new_recepie_id));
+                    intent.putExtra("PREV_INTENT","ALLRECEPIES");
+                    startActivity(intent);
+
                 }
             });
             return convertView;

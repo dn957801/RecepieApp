@@ -52,36 +52,6 @@ public class AllRecepieList extends AppCompatActivity {
         //listView.setLongClickable(true);
 
         listView.setAdapter(customAdapter);
-        // Invoke function to get all recepies
-        //getAllRecepies();
-
-        /* listView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        int count = 0, incr_count = 0;
-                        for (count = 0; count < countOfRecepies; count++) {
-                            if (position == count) {
-                                // this is the recepie to be displayed
-                                Cursor result = db.getRecepiesFromDatabase();
-                                // increment cursor to reach exact row
-                                while (incr_count != count) {
-                                    result.moveToNext();
-                                    incr_count++;
-                                }
-                                //itemsAdapter.clear();
-                                // now reached exact position, invoke activity
-                                Log.i(TAG, "DIN First count = " + count + "incr_count = " + incr_count);
-                                Intent intent = new Intent(AllRecepieList.this, displayRecepie.class);
-                                intent.putExtra("RECEPIE_ID", (count));
-                                startActivity(intent);
-
-                            }
-                        }
-
-                    }
-                }
-        );*/
 
         create_recepie = (Button) findViewById(R.id.create_new_recepie);
         create_recepie.setOnClickListener(new View.OnClickListener() {
@@ -109,12 +79,6 @@ public class AllRecepieList extends AppCompatActivity {
         } else {
             Log.i(TAG, "DIN inside else, count of recepies = " + countOfRecepies);
             while (counter < countOfRecepies) {
-                Log.i(TAG, "DIN while loop. counter = " + counter);
-                /* if (counter >= countOfRecepies) {
-                    Log.i(TAG, "DIN while loop break");
-                    break;
-                }*/
-                //counter++;
                 result.moveToNext();
                 recepie_name = result.getString(1);
                 Log.i(TAG, "DIN recepie_name = " + recepie_name);
@@ -205,6 +169,7 @@ public class AllRecepieList extends AppCompatActivity {
                             // now reached exact position, invoke activity
                             Intent intent = new Intent(AllRecepieList.this, displayRecepie.class);
                             intent.putExtra("RECEPIE_ID", (count));
+                            intent.putExtra("PREV_INTENT","ALLRECEPIES");
                             startActivity(intent);
 
                         }

@@ -81,6 +81,7 @@ public class EditRecepie extends AppCompatActivity {
 
                     Intent intent = new Intent(EditRecepie.this, displayRecepie.class);
                     intent.putExtra("RECEPIE_ID", recepie_id);
+                    intent.putExtra("PREV_INTENT", "EDITRECEPIE");
                     startActivity(intent);
                 }
                 else {
@@ -94,6 +95,7 @@ public class EditRecepie extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(), displayRecepie.class);
         intent.putExtra("RECEPIE_ID", recepie_id);
+        intent.putExtra("PREV_INTENT", "EDITRECEPIE");
         startActivity(intent);
     }
 }

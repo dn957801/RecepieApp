@@ -18,7 +18,7 @@ public class displayRecepie extends AppCompatActivity {
 
     RecepieDB db;
     int recepie_id=0, recepie_id_fromDB = 0;
-    String TAG="displayRecepie";
+    String TAG="displayRecepie", previous_intent;
     TextView etRecepieX, etDTD, etIngredTD, etInstrTD, etURL;
     Button etEdit, etDelete, etRate;
     String desc_text, ingred_text,instr_text, url_text;
@@ -44,7 +44,8 @@ public class displayRecepie extends AppCompatActivity {
         db = new RecepieDB(this);
         Intent oldIntent = getIntent();
         recepie_id = oldIntent.getIntExtra("RECEPIE_ID" , 0);
-        Log.i(TAG,"Recepie ID retrieved = " + recepie_id);
+        previous_intent = oldIntent.getStringExtra("PREV_INTENT");
+        Log.i(TAG,"SHENOY Recepie ID retrieved = " + recepie_id);
         displayRecepie(recepie_id);
 
 
@@ -138,16 +139,51 @@ public class displayRecepie extends AppCompatActivity {
             return;
         }
 
-        while(local_counter <= recepie_id) {
+        // if returned from searchRecepie, then handle differently
+        if(previous_intent.matches("SEARCH")) {
+
+            while(local_counter != recepie_id) {
+                local_counter++;
+                result.moveToNext();
+            }
+
+            Log.i(TAG, "Hey mission successful, set accordingly");
+            //result.moveToPrevious();
+            recepie_id_fromDB = Integer.parseInt(result.getString(0));
+            etRecepieX.setText(result.getString(0));
+
+            desc_text = result.getString(1);
+            etDTD.setText(result.getString(1));
+
+            ingred_text = result.getString(2);
+            etIngredTD.setText(result.getString(2));
+
+            instr_text = result.getString(3);
+            etInstrTD.setText(result.getString(3));
+
+            url_text = result.getString(4);
+            etURL.setText(result.getString(4));
+
+            rating_value_to_be_set = result.getFloat(5);
+            ratingBar.setRating(rating_value_to_be_set);
+
+            return;
+        }
+
+        if(result != null)
+            result.moveToFirst();
+
+        //local_counter = 1;
+        while(local_counter < recepie_id) {
             local_counter++;
             result.moveToNext();
         }
-
         // Set the recepie details
         recepie_id_fromDB = Integer.parseInt(result.getString(0));
         etRecepieX.setText(result.getString(0));
         Log.i(TAG, "VICHITRA recepie_id_fromDB = " + recepie_id_fromDB);
         Log.i(TAG, "VICHITRA recepie_id received in function = " + recepie_id);
+
 
         desc_text = result.getString(1);
         etDTD.setText(result.getString(1));

@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Load the activity to perform search
+                Intent intent = new Intent(MainActivity.this, serachRecepie.class);
+                startActivity(intent);
             }
         });
 

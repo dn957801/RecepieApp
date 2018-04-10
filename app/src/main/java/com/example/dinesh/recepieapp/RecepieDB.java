@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by dinesh on 01/04/18.
@@ -21,11 +23,13 @@ public class RecepieDB extends SQLiteOpenHelper{
     public static final String col_4 = "INSTRUCTIONS";
     public static final String col_5 = "URL";
     public static final String col_6 = "RATING";
+    public static final String KEY_WORD = "DESCRIPTION";
+    public static final String TAG = "RecepieDB.java";
 
 
 
     public RecepieDB(Context context) {
-        super(context, database_name, null, 2);
+        super(context, database_name, null, 4);
     }
 
     @Override
@@ -103,5 +107,34 @@ public class RecepieDB extends SQLiteOpenHelper{
         return result;
     }
 
-}
+    // Reference : https://github.com/google-developer-training/android-fundamentals/blob/master/WordListSqlSearchable/app/src/main/java/com/android/example/wordlistsqlsearchable/WordListOpenHelper.java
+    public Cursor search(String searchString) {
 
+        Cursor cursor = null;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        cursor = db.rawQuery("select * from recepies_table where DESCRIPTION like'%"+searchString+"%'",null);
+
+        try {
+            //SQLiteDatabase db = this.getWritableDatabase();
+            //cursor = db.query(table_name, columns, where, whereArgs, null, null, null);
+            /*String sql = "select * from " +table_name + "WHERE" + KEY_WORD + "Like '%" + searchString + "%'";
+            //cursor = db.rawQuery("select * from " +table_name + "WHERE" + KEY_WORD + "Like %" + searchString + "%");
+            cursor = db.rawQuery(sql, null);*/
+            Log.i(TAG, "WOW, inside try");
+            if(cursor == null) {
+                Log.i(TAG, "WOW, problem problem probelm");
+            }
+            Log.i(TAG, "String to be searched is = " + searchString);
+            if(cursor != null) {
+                return cursor;
+            }
+
+        } catch (Exception e) {
+            Log.i(TAG, "WOW EXCEPTION");
+            return null;
+        }
+        return cursor;
+    }
+
+}

@@ -1,7 +1,10 @@
 package com.example.dinesh.recepieapp;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +14,7 @@ public class CreateRecepie extends AppCompatActivity {
     RecepieDB myRecepieDB;
     EditText text_desc, text_ingr, text_inst, text_url;
     Button save, cancel;
+    String TAG = "CreateRecepie";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +35,39 @@ public class CreateRecepie extends AppCompatActivity {
         save.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        // Check for empty description
+                        if((text_desc.getText().toString()).matches("")) {
+                            // empty, so alert and stay there
+                            android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(CreateRecepie.this);
+                            alert.setTitle("Alert!!");
+                            alert.setMessage("Provide a description");
+                            alert.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    dialog.dismiss();
+                                }
+                            });
+                            alert.show();
+                            return;
+
+                        }
+
                         boolean isInserted = myRecepieDB.insertData(text_desc.getText().toString(),
                                 text_ingr.getText().toString(),
                                 text_inst.getText().toString(),
-                                text_inst.getText().toString());
+                                text_url.getText().toString());
 
                         if(isInserted == true) {
                             Toast.makeText(CreateRecepie.this, "Recepie saved",Toast.LENGTH_SHORT).show();
-                            text_desc.setText(" ");
+                            /**text_desc.setText(" ");
                             text_ingr.setText(" ");
                             text_inst.setText(" ");
-                            text_url.setText(" ");
+                            text_url.setText(" ");*/
+                            Intent intent = new Intent(getApplicationContext(), AllRecepieList.class);
+                            startActivity(intent);
                         }
                         else {
                             Toast.makeText(CreateRecepie.this, "Database insertion failed",Toast.LENGTH_SHORT).show();
@@ -55,5 +81,11 @@ public class CreateRecepie extends AppCompatActivity {
     public void addRecepieToDB() {
         // invoke function to insert data to database
         //myRecepieDB.insertData()
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), AllRecepieList.class);
+        startActivity(intent);
     }
 }

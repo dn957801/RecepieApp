@@ -21,7 +21,7 @@
         android:text="DESCRIPTION" />
 
     <TextView
-        android:id="@+id/description_text"
+        android:id="@+id/description_text_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/description"
@@ -39,12 +39,12 @@
         android:text="INGREDIENTS" />
 
     <TextView
-        android:id="@+id/ingred_text"
+        android:id="@+id/ingred_text_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/ingredients"
         android:layout_alignBottom="@+id/ingredients"
-        android:layout_alignStart="@+id/description_text" />
+        android:layout_alignStart="@+id/description_text_display" />
 
     <TextView
         android:id="@+id/instructions"
@@ -56,15 +56,16 @@
         android:text="INSTRUCTIONS" />
 
     <TextView
-        android:id="@+id/instruction_text"
+        android:id="@+id/instruction_text_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/instructions"
-        android:layout_marginTop="19dp" />
+
+        android:layout_alignBaseline="@+id/instructions"
+        android:layout_alignBottom="@+id/instructions"
+        android:layout_alignStart="@+id/ingred_text_display" />
 
     <Button
-        android:id="@+id/edit"
+        android:id="@+id/SAVE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/instructions"
@@ -73,38 +74,38 @@
         android:text="EDIT" />
 
     <Button
-        android:id="@+id/create"
+        android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/edit"
-        android:layout_alignBottom="@+id/edit"
+        android:layout_alignBaseline="@+id/SAVE"
+        android:layout_alignBottom="@+id/SAVE"
         android:layout_marginStart="40dp"
-        android:layout_toEndOf="@+id/edit"
+        android:layout_toEndOf="@+id/SAVE"
         android:text="DELETE" />
 
     <Button
         android:id="@+id/rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/create"
+        android:layout_alignBottom="@+id/delete"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="24dp"
         android:text="RATE" />
 
     <TextView
-        android:id="@+id/url"
+        android:id="@+id/url_text_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/edit"
-        android:layout_alignStart="@+id/edit"
-        android:layout_marginBottom="21dp"
-        android:text="URL (IF ANY)" />
+        android:layout_alignStart="@+id/instruction_text_display"
+        android:layout_below="@+id/instruction_text_display"
+        android:layout_marginTop="33dp" />
 
     <TextView
-        android:id="@+id/url_text"
+        android:id="@+id/urlText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ingred_text"
-        android:layout_alignTop="@+id/url" />
+        android:layout_alignStart="@+id/SAVE"
+        android:layout_alignTop="@+id/url_text_display"
+        android:text="URL" />
 
 </RelativeLayout>

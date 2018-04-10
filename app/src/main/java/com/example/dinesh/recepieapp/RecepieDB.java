@@ -35,6 +35,7 @@ public class RecepieDB extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+table_name);
+        onCreate(db);
     }
 
     public boolean insertData( String description, String ingredients, String instructions, String url) {
@@ -60,4 +61,30 @@ public class RecepieDB extends SQLiteOpenHelper{
 
         return result;
     }
+
+    public boolean updateData( String id, String desc, String ingred, String instr, String url) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        int result=0;
+
+        contentValues.put(col_2, desc);
+        contentValues.put(col_3, ingred);
+        contentValues.put(col_4, instr);
+        contentValues.put(col_5, url);
+
+        result = db.update(table_name, contentValues, "ID= ?", new String[] {id});
+        if(result == 0)
+            return false;
+        else
+            return true;
+    }
+
+    public int deleteData( String id ) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int result = 0;
+        result = db.delete(table_name, "ID = ?", new String [] {id});
+        return result;
+    }
+
 }
+

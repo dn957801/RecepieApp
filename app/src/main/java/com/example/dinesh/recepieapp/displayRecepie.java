@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class displayRecepie extends AppCompatActivity {
     TextView etRecepieX, etDTD, etIngredTD, etInstrTD, etURL;
     Button etEdit, etDelete, etRate;
     String desc_text, ingred_text,instr_text, url_text;
+    RatingBar ratingBar;
 
 
     @Override
@@ -36,7 +38,8 @@ public class displayRecepie extends AppCompatActivity {
 
         etEdit = (Button)findViewById(R.id.SAVE);
         etDelete = (Button)findViewById(R.id.delete);
-        etRate = (Button)findViewById(R.id.rate);
+        //etRate = (Button)findViewById(R.id.rate);
+        ratingBar = (RatingBar) findViewById(R.id.rating);
 
         db = new RecepieDB(this);
         Intent oldIntent = getIntent();
@@ -102,11 +105,31 @@ public class displayRecepie extends AppCompatActivity {
                 }
         );
 
+        ratingBar.setOnRatingBarChangeListener(
+                new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                        boolean result=true;
+
+                        // Insert rating to database
+                        Log.i(TAG, "SHENOY rating to update in DB = " + rating + " for DB entry = " + String.valueOf(recepie_id_fromDB));
+                        result = db.updateRating(String.valueOf(recepie_id_fromDB), rating);
+                        if(result == false) {
+                            Toast.makeText(displayRecepie.this, "Rating update failed", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(displayRecepie.this, "Rating update successful", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }
+        );
 
     }
 
     public void displayRecepie( int recepie_id ) {
         int local_counter = 0;
+        float rating_value_to_be_set;
         Cursor result = db.getRecepiesFromDatabase();
         if(result.getCount() == 0) {
             // No recepies available
@@ -138,6 +161,8 @@ public class displayRecepie extends AppCompatActivity {
         url_text = result.getString(4);
         etURL.setText(result.getString(4));
 
+        rating_value_to_be_set = result.getFloat(5);
+        ratingBar.setRating(rating_value_to_be_set);
 
     }
 

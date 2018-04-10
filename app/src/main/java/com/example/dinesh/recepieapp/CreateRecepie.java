@@ -58,7 +58,7 @@ public class CreateRecepie extends AppCompatActivity {
                         boolean isInserted = myRecepieDB.insertData(text_desc.getText().toString(),
                                 text_ingr.getText().toString(),
                                 text_inst.getText().toString(),
-                                text_url.getText().toString());
+                                text_url.getText().toString(), 0.0f);
 
                         if(isInserted == true) {
                             Toast.makeText(CreateRecepie.this, "Recepie saved",Toast.LENGTH_SHORT).show();
@@ -75,6 +75,14 @@ public class CreateRecepie extends AppCompatActivity {
                     }
                 }
         );
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AllRecepieList.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

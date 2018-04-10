@@ -3,13 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RatingBar
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
     <TextView
         android:id="@+id/recepieX"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="41dp" />
+        android:layout_marginTop="50dp" />
 
     <TextView
         android:id="@+id/description"
@@ -68,9 +75,10 @@
         android:id="@+id/SAVE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/instructions"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="62dp"
+        android:layout_marginBottom="58dp"
+        android:layout_marginEnd="28dp"
+        android:layout_toStartOf="@+id/url_text_display"
         android:text="EDIT" />
 
     <Button
@@ -79,18 +87,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/SAVE"
         android:layout_alignBottom="@+id/SAVE"
-        android:layout_marginStart="40dp"
-        android:layout_toEndOf="@+id/SAVE"
+        android:layout_alignEnd="@+id/rating"
         android:text="DELETE" />
-
-    <Button
-        android:id="@+id/rate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/delete"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="24dp"
-        android:text="RATE" />
 
     <TextView
         android:id="@+id/url_text_display"
@@ -104,8 +102,9 @@
         android:id="@+id/urlText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/SAVE"
-        android:layout_alignTop="@+id/url_text_display"
+        android:layout_alignBaseline="@+id/url_text_display"
+        android:layout_alignBottom="@+id/url_text_display"
+        android:layout_alignParentStart="true"
         android:text="URL" />
 
 </RelativeLayout>

@@ -20,16 +20,17 @@ public class RecepieDB extends SQLiteOpenHelper{
     public static final String col_3 = "INGREDIENTS";
     public static final String col_4 = "INSTRUCTIONS";
     public static final String col_5 = "URL";
+    public static final String col_6 = "RATING";
 
 
 
     public RecepieDB(Context context) {
-        super(context, database_name, null, 1);
+        super(context, database_name, null, 2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + table_name + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,DESCRIPTION TEXT,INGREDIENTS TEXT,INSTRUCTIONS TEXT,URL TEXT)" );
+        db.execSQL("create table " + table_name + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,DESCRIPTION TEXT,INGREDIENTS TEXT,INSTRUCTIONS TEXT,URL TEXT,RATING INFO)" );
     }
 
     @Override
@@ -38,7 +39,7 @@ public class RecepieDB extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean insertData( String description, String ingredients, String instructions, String url) {
+    public boolean insertData( String description, String ingredients, String instructions, String url, float rating_value) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -46,6 +47,7 @@ public class RecepieDB extends SQLiteOpenHelper{
         contentValues.put(col_3, ingredients);
         contentValues.put(col_4, instructions);
         contentValues.put(col_5, url);
+        contentValues.put(col_6, rating_value);
         long result = db.insert(table_name, null, contentValues);
         if (result == -1) {
             return false;
@@ -77,6 +79,21 @@ public class RecepieDB extends SQLiteOpenHelper{
             return false;
         else
             return true;
+    }
+
+    public boolean updateRating(String id, float rating) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        int result = 0;
+
+        contentValues.put(col_6, rating);
+        result = db.update(table_name, contentValues, "ID= ?", new String[] {id});
+
+        if(result == 0)
+            return false;
+        else
+            return true;
+
     }
 
     public int deleteData( String id ) {
